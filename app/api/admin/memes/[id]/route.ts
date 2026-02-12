@@ -9,8 +9,9 @@ import { isAdmin } from '@/lib/admin'
  */
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params
   try {
     const userId = request.cookies.get("user_id")?.value
 
@@ -30,7 +31,7 @@ export async function PATCH(
       )
     }
 
-    const memeId = params.id
+    const memeId = id
     const body = await request.json()
     const { status } = body
 
@@ -67,8 +68,10 @@ export async function PATCH(
  */
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id: memeId } = await params
+
   try {
     const userId = request.cookies.get("user_id")?.value
 
@@ -87,8 +90,6 @@ export async function DELETE(
         { status: 403 }
       )
     }
-
-    const memeId = params.id
 
     // 删除梗（级联删除投票、评论等）
     await prisma.meme.delete({
