@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { isAdmin } from '@/lib/admin'
 
+export const dynamic = 'force-dynamic'
+
 /**
  * 获取管理员统计数据
  * GET /api/admin/stats

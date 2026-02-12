@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { isAdmin } from '@/lib/admin'
 
+export const dynamic = 'force-dynamic'
+
 /**
  * 获取梗列表（管理员）
  * GET /api/admin/memes?status=pending&page=1&limit=10

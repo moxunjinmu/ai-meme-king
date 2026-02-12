@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server"
 
+export const dynamic = 'force-dynamic'
+
 /**
  * 用户登出
  * POST /api/auth/logout

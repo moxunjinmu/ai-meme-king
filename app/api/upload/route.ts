@@ -4,6 +4,8 @@ import { mkdir } from 'fs/promises'
 import path from 'path'
 import { v4 as uuidv4 } from 'uuid'
 
+export const dynamic = 'force-dynamic'
+
 /**
  * 图片上传
  * POST /api/upload

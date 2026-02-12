@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 
+export const dynamic = 'force-dynamic'
+
 export async function GET(request: NextRequest) {
   const params = new URLSearchParams({
     client_id: process.env.NEXT_PUBLIC_SECONDME_CLIENT_ID!,
