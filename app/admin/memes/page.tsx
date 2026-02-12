@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { Navigation } from "@/components/layout/navigation"
@@ -25,6 +25,27 @@ interface Meme {
 }
 
 export default function AdminMemesPage() {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <AdminMemesContent />
+    </Suspense>
+  )
+}
+
+function LoadingFallback() {
+  return (
+    <main className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 dark:from-gray-900 dark:via-purple-900 dark:to-blue-900">
+      <Navigation />
+      <div className="container mx-auto px-4 py-12">
+        <div className="mx-auto max-w-6xl">
+          <div className="h-32 animate-pulse rounded-2xl bg-gray-200 dark:bg-gray-800" />
+        </div>
+      </div>
+    </main>
+  )
+}
+
+function AdminMemesContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { user, loading: authLoading } = useAuth()
@@ -260,6 +281,8 @@ export default function AdminMemesPage() {
       </div>
     </main>
   )
+}
+
 }
 
 function StatusBadge({ status }: { status: string }) {
