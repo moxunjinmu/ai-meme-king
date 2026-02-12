@@ -7,11 +7,11 @@ import { prisma } from '@/lib/prisma'
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { characterId: string } }
+  { params }: { params: Promise<{ characterId: string }> }
 ) {
   try {
     const userId = request.cookies.get("user_id")?.value
-    const characterId = params.characterId
+    const { characterId } = await params
 
     if (!userId) {
       return NextResponse.json(
@@ -55,11 +55,11 @@ export async function GET(
  */
 export async function POST(
   request: NextRequest,
-  { params }: { params: { characterId: string } }
+  { params }: { params: Promise<{ characterId: string }> }
 ) {
   try {
     const userId = request.cookies.get("user_id")?.value
-    const characterId = params.characterId
+    const { characterId } = await params
 
     if (!userId) {
       return NextResponse.json(
