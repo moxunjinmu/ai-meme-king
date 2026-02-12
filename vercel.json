@@ -3,14 +3,5 @@
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
   "installCommand": "npm install",
-  "framework": "nextjs",
-  "env": {
-    "NEXT_PUBLIC_SECONDME_REDIRECT_URI": "@next_public_secondme_redirect_uri"
-  },
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/next"
-    }
-  ]
+  "framework": "nextjs"
 }
