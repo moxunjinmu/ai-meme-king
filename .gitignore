@@ -44,3 +44,5 @@ Thumbs.db
 
 # Playwright MCP 日志
 .playwright-mcp/
+
+.vercel
