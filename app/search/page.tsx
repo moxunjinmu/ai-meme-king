@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { Navigation } from "@/components/layout/navigation"
@@ -20,6 +20,30 @@ interface Meme {
 }
 
 export default function SearchPage() {
+  return (
+    <Suspense fallback={<SearchLoadingFallback />}>
+      <SearchContent />
+    </Suspense>
+  )
+}
+
+function SearchLoadingFallback() {
+  return (
+    <main className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 dark:from-gray-900 dark:via-purple-900 dark:to-blue-900">
+      <Navigation />
+      <div className="container mx-auto px-4 py-12">
+        <div className="mx-auto max-w-4xl">
+          <h1 className="mb-8 text-center text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            🔍 搜索梗
+          </h1>
+          <div className="h-32 animate-pulse rounded-2xl bg-gray-200 dark:bg-gray-800" />
+        </div>
+      </div>
+    </main>
+  )
+}
+
+function SearchContent() {
   const searchParams = useSearchParams()
   const initialQuery = searchParams.get("q") || ""
 
