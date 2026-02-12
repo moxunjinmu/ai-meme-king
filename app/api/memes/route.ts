@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 
+export const dynamic = 'force-dynamic'
+
 /**
  * 获取梗列表
  * GET /api/memes?sort=hot|new&tag=xxx&page=1&limit=20
