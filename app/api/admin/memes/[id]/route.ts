@@ -9,9 +9,9 @@ import { isAdmin } from '@/lib/admin'
  */
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
-  const { id } = await params
+  const { id } = params
   try {
     const userId = request.cookies.get("user_id")?.value
 
@@ -68,9 +68,9 @@ export async function PATCH(
  */
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
-  const { id: memeId } = await params
+  const { id: memeId } = params
 
   try {
     const userId = request.cookies.get("user_id")?.value

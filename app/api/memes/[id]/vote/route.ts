@@ -8,10 +8,10 @@ import { prisma } from '@/lib/prisma'
  */
 export async function POST(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id: memeId } = await params
+    const memeId = params.id
     const body = await request.json()
     const { action, userId } = body
 
@@ -130,10 +130,10 @@ export async function POST(
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id: memeId } = await params
+    const memeId = params.id
     const { searchParams } = new URL(request.url)
     const userId = searchParams.get('userId')
 

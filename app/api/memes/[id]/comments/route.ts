@@ -7,10 +7,10 @@ import { prisma } from '@/lib/prisma'
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id: memeId } = await params
+    const memeId = params.id
 
     const comments = await prisma.comment.findMany({
       where: {
@@ -65,10 +65,10 @@ export async function GET(
  */
 export async function POST(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id: memeId } = await params
+    const memeId = params.id
     const userId = request.cookies.get("user_id")?.value
 
     if (!userId) {

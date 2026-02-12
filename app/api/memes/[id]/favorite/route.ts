@@ -7,10 +7,10 @@ import { prisma } from '@/lib/prisma'
  */
 export async function POST(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id: memeId } = await params
+    const memeId = params.id
     const userId = request.cookies.get("user_id")?.value
 
     if (!userId) {
@@ -105,10 +105,10 @@ export async function POST(
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id: memeId } = await params
+    const memeId = params.id
     const userId = request.cookies.get("user_id")?.value
 
     if (!userId) {
