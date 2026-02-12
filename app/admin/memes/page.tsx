@@ -283,8 +283,6 @@ function AdminMemesContent() {
   )
 }
 
-}
-
 function StatusBadge({ status }: { status: string }) {
   const classes = {
     pending: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400",
