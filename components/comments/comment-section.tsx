@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { useAuth } from "@/lib/auth"
 import { useToast } from "@/components/ui/toast"
 import { InlineLoginPrompt } from "@/components/auth/login-prompt"
+import { Avatar } from "@/components/ui/avatar"
 
 interface Comment {
   id: string
@@ -147,17 +148,7 @@ export function CommentSection({ memeId }: CommentSectionProps) {
               className="rounded-xl border border-gray-100 bg-white/50 p-4 dark:border-gray-800 dark:bg-gray-800/50"
             >
               <div className="flex items-center gap-2">
-                {comment.user.avatar ? (
-                  <img
-                    src={comment.user.avatar}
-                    alt={comment.user.username}
-                    className="h-8 w-8 rounded-full"
-                  />
-                ) : (
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-purple-500 text-xs font-bold text-white">
-                    {comment.user.username.charAt(0).toUpperCase()}
-                  </div>
-                )}
+                <Avatar src={comment.user.avatar} alt={comment.user.username} size="md" />
                 <span className="font-medium text-gray-900 dark:text-white">
                   {comment.user.username}
                 </span>

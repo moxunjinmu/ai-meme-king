@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { Navigation } from "@/components/layout/navigation"
 import { useAuth } from "@/lib/auth"
+import { Avatar } from "@/components/ui/avatar"
 
 interface Vote {
   id: string
@@ -109,17 +110,12 @@ export default function ProfilePage() {
           <div className="mb-8 rounded-2xl border border-purple-200/50 bg-white/90 p-8 shadow-lg backdrop-blur-sm dark:border-purple-800/50 dark:bg-gray-800/90">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
-                {user.avatar ? (
-                  <img
+                <Avatar
                     src={user.avatar}
                     alt={user.username}
-                    className="h-20 w-20 rounded-full border-4 border-purple-200 dark:border-purple-800"
+                    size="lg"
+                    className="border-4 border-purple-200 dark:border-purple-800"
                   />
-                ) : (
-                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-pink-500 text-3xl font-bold text-white">
-                    {user.username.charAt(0).toUpperCase()}
-                  </div>
-                )}
                 <div>
                   <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
                     {user.username}

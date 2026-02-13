@@ -4,8 +4,7 @@ import Link from "next/link"
 import { useState, useEffect } from "react"
 import { useTheme } from "@/components/providers/theme-provider"
 import { useAuth } from "@/lib/auth"
-
-// 需要在文件顶部导入Link
+import { Avatar } from "@/components/ui/avatar"
 
 export function Navigation() {
   const { theme, setTheme } = useTheme()
@@ -60,13 +59,7 @@ export function Navigation() {
                 href="/profile"
                 className="flex items-center space-x-2 rounded-full bg-purple-100 px-3 py-1.5 transition-all hover:bg-purple-200 dark:bg-purple-900/30 dark:hover:bg-purple-900/50"
               >
-                {user.avatar ? (
-                  <img src={user.avatar} alt={user.username} className="h-6 w-6 rounded-full" />
-                ) : (
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-purple-500 text-xs font-bold text-white">
-                    {user.username.charAt(0).toUpperCase()}
-                  </div>
-                )}
+                <Avatar src={user.avatar} alt={user.username} size="sm" />
                 <span className="text-sm font-medium text-purple-700 dark:text-purple-300">
                   {user.username}
                 </span>
