@@ -26,37 +26,49 @@ export async function GET(request: NextRequest) {
     })
 
     if (!tokenResponse.ok) {
-      throw new Error("Failed to exchange code for token")
+      const errorText = await tokenResponse.text()
+      console.error("Token exchange failed:", tokenResponse.status, errorText)
+      throw new Error(`Failed to exchange code for token: ${tokenResponse.status} ${errorText}`)
     }
 
     const tokenData = await tokenResponse.json()
+    console.log("Token data:", tokenData)
 
-    // 获取用户信息
-    const userResponse = await fetch(`${process.env.NEXT_PUBLIC_SECONDME_API_URL}/api/v1/user/info`, {
+    // 获取用户信息 - SecondMe API 端点: /api/secondme/user/info
+    const userResponse = await fetch(`${process.env.NEXT_PUBLIC_SECONDME_API_URL}/api/secondme/user/info`, {
       headers: {
         Authorization: `Bearer ${tokenData.access_token}`,
       },
     })
 
     if (!userResponse.ok) {
-      throw new Error("Failed to fetch user info")
+      const errorText = await userResponse.text()
+      console.error("User info fetch failed:", userResponse.status, errorText)
+      throw new Error(`Failed to fetch user info: ${userResponse.status} ${errorText}`)
     }
 
     const userData = await userResponse.json()
+    console.log("User data:", userData)
+
+    // SecondMe 返回的数据格式: { code: 0, message: 'success', data: { name, bio, avatar } }
+    const userInfo = userData.data || userData
+    const userId = userInfo.id || userInfo.userId || `user_${Date.now()}`
+
+    console.log("Processing user:", userId, userInfo)
 
     // 将用户信息保存到数据库
     await prisma.user.upsert({
-      where: { id: userData.id },
+      where: { id: userId },
       update: {
-        username: userData.username || userData.name || '用户',
-        avatar: userData.avatar || userData.picture,
+        username: userInfo.name || userInfo.username || userInfo.nickname || '用户',
+        avatar: userInfo.avatar,
         accessToken: tokenData.access_token,
         refreshToken: tokenData.refresh_token,
       },
       create: {
-        id: userData.id,
-        username: userData.username || userData.name || '用户',
-        avatar: userData.avatar || userData.picture,
+        id: userId,
+        username: userInfo.name || userInfo.username || userInfo.nickname || '用户',
+        avatar: userInfo.avatar,
         accessToken: tokenData.access_token,
         refreshToken: tokenData.refresh_token,
       },
@@ -72,7 +84,7 @@ export async function GET(request: NextRequest) {
       maxAge: 60 * 60 * 24 * 7, // 7 days
     })
 
-    response.cookies.set("user_id", userData.id, {
+    response.cookies.set("user_id", userId, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
