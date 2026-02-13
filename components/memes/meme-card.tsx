@@ -41,7 +41,8 @@ export function MemeCard({ meme }: MemeCardProps) {
 
       try {
         const response = await fetch(
-          `/api/memes/${meme.id}/vote?userId=${user.id}`
+          `/api/memes/${meme.id}/vote?userId=${user.id}`,
+          { credentials: "include" }
         )
         const result = await response.json()
         if (result.success) {
@@ -61,7 +62,9 @@ export function MemeCard({ meme }: MemeCardProps) {
       if (!user?.id) return
 
       try {
-        const response = await fetch(`/api/memes/${meme.id}/favorite`)
+        const response = await fetch(`/api/memes/${meme.id}/favorite`, {
+          credentials: "include",
+        })
         const result = await response.json()
         if (result.success) {
           setFavorited(result.data.favorited)
@@ -88,6 +91,7 @@ export function MemeCard({ meme }: MemeCardProps) {
     try {
       const response = await fetch(`/api/memes/${meme.id}/vote`, {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -127,6 +131,7 @@ export function MemeCard({ meme }: MemeCardProps) {
     try {
       const response = await fetch(`/api/memes/${meme.id}/favorite`, {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

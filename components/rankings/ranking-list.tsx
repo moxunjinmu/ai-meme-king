@@ -29,7 +29,9 @@ export function RankingList({ type, title, icon, colorClass }: RankingListProps)
   useEffect(() => {
     async function fetchRankings() {
       try {
-        const response = await fetch(`/api/rankings?type=${type}&limit=10`)
+        const response = await fetch(`/api/rankings?type=${type}&limit=10`, {
+          credentials: "include",
+        })
         const result = await response.json()
         if (result.success) {
           setMemes(result.data.memes)

@@ -43,7 +43,9 @@ export function MemeGrid({ sort = "hot", tag }: MemeGridProps) {
       params.set("limit", "12")
       if (tag) params.set("tag", tag)
 
-      const response = await fetch(`/api/memes?${params.toString()}`)
+      const response = await fetch(`/api/memes?${params.toString()}`, {
+        credentials: "include",
+      })
       const result = await response.json()
 
       if (result.success) {

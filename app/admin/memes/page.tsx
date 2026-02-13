@@ -68,7 +68,7 @@ function AdminMemesContent() {
   async function fetchMemes() {
     setLoading(true)
     try {
-      const response = await fetch(`/api/admin/memes?status=${activeStatus}`)
+      const response = await fetch(`/api/admin/memes?status=${activeStatus}`, { credentials: "include" })
       const result = await response.json()
 
       if (response.status === 403) {
@@ -92,6 +92,7 @@ function AdminMemesContent() {
     try {
       const response = await fetch(`/api/admin/memes/${memeId}`, {
         method: "PATCH",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: "approved" }),
       })
@@ -138,6 +139,7 @@ function AdminMemesContent() {
     try {
       const response = await fetch(`/api/admin/memes/${memeId}`, {
         method: "DELETE",
+        credentials: "include",
       })
 
       const result = await response.json()

@@ -2,7 +2,9 @@ import useSWR, { SWRConfiguration } from "swr"
 
 // 基础fetcher
 const fetcher = async (url: string) => {
-  const response = await fetch(url)
+  const response = await fetch(url, {
+    credentials: "include", // 确保发送 Cookie
+  })
   const data = await response.json()
   if (!data.success) {
     throw new Error(data.error || "请求失败")

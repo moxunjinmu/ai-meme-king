@@ -41,6 +41,7 @@ export default function SubmitPage() {
 
       const response = await fetch("/api/upload", {
         method: "POST",
+        credentials: "include",
         body: formData,
       })
 
@@ -73,6 +74,7 @@ export default function SubmitPage() {
     try {
       const response = await fetch("/api/memes/submit", {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

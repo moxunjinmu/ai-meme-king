@@ -67,7 +67,9 @@ function SearchContent() {
     setSearchQuery(searchTerm)
 
     try {
-      const response = await fetch(`/api/search?q=${encodeURIComponent(searchTerm)}`)
+      const response = await fetch(`/api/search?q=${encodeURIComponent(searchTerm)}`, {
+        credentials: "include",
+      })
       const result = await response.json()
 
       if (result.success) {

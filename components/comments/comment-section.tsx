@@ -40,7 +40,9 @@ export function CommentSection({ memeId }: CommentSectionProps) {
   async function fetchComments() {
     setLoading(true)
     try {
-      const response = await fetch(`/api/memes/${memeId}/comments`)
+      const response = await fetch(`/api/memes/${memeId}/comments`, {
+        credentials: "include",
+      })
       const result = await response.json()
       if (result.success) {
         setComments(result.data.comments)
@@ -65,6 +67,7 @@ export function CommentSection({ memeId }: CommentSectionProps) {
     try {
       const response = await fetch(`/api/memes/${memeId}/comments`, {
         method: "POST",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ content }),
       })

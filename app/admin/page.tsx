@@ -39,7 +39,7 @@ export default function AdminPage() {
   async function checkAdminAndFetchData() {
     try {
       // 获取统计数据（同时验证管理员权限）
-      const response = await fetch("/api/admin/stats")
+      const response = await fetch("/api/admin/stats", { credentials: "include" })
       const result = await response.json()
 
       if (response.status === 403) {

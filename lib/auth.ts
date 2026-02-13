@@ -16,7 +16,9 @@ export function useAuth() {
   useEffect(() => {
     async function fetchUser() {
       try {
-        const response = await fetch("/api/auth/me")
+        const response = await fetch("/api/auth/me", {
+          credentials: "include", // 确保发送 Cookie
+        })
         if (response.ok) {
           const data = await response.json()
           if (data.success) {

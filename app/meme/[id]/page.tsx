@@ -47,7 +47,7 @@ export default function MemeDetailPage() {
   useEffect(() => {
     async function fetchMemeDetail() {
       try {
-        const response = await fetch(`/api/memes/${memeId}`)
+        const response = await fetch(`/api/memes/${memeId}`, { credentials: "include" })
         const result = await response.json()
 
         if (result.success) {
@@ -69,7 +69,7 @@ export default function MemeDetailPage() {
       if (!user?.id) return
 
       try {
-        const response = await fetch(`/api/memes/${memeId}/vote?userId=${user.id}`)
+        const response = await fetch(`/api/memes/${memeId}/vote?userId=${user.id}`, { credentials: "include" })
         const result = await response.json()
         if (result.success) {
           setVoted(result.data.voted)
@@ -92,6 +92,7 @@ export default function MemeDetailPage() {
     try {
       const response = await fetch(`/api/memes/${memeId}/vote`, {
         method: "POST",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           action: voted ? "downvote" : "upvote",

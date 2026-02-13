@@ -62,7 +62,7 @@ function ChatContent() {
 
   async function fetchCharacters() {
     try {
-      const response = await fetch("/api/chat/characters")
+      const response = await fetch("/api/chat/characters", { credentials: "include" })
       const result = await response.json()
 
       if (result.success) {
@@ -81,7 +81,7 @@ function ChatContent() {
 
   async function fetchMessages(characterId: string) {
     try {
-      const response = await fetch(`/api/chat/${characterId}/messages`)
+      const response = await fetch(`/api/chat/${characterId}/messages`, { credentials: "include" })
       const result = await response.json()
 
       if (result.success) {
@@ -112,6 +112,7 @@ function ChatContent() {
     try {
       const response = await fetch(`/api/chat/${selectedCharacter.id}/messages`, {
         method: "POST",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: messageText }),
       })
@@ -149,6 +150,7 @@ function ChatContent() {
     try {
       const response = await fetch("/api/chat/characters", {
         method: "POST",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: newCharacterName,

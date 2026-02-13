@@ -56,21 +56,21 @@ export default function ProfilePage() {
     setLoading(true)
     try {
       // 获取投票历史
-      const votesRes = await fetch("/api/user/votes")
+      const votesRes = await fetch("/api/user/votes", { credentials: "include" })
       const votesData = await votesRes.json()
       if (votesData.success) {
         setVotes(votesData.data.votes)
       }
 
       // 获取投稿记录
-      const memesRes = await fetch("/api/user/memes")
+      const memesRes = await fetch("/api/user/memes", { credentials: "include" })
       const memesData = await memesRes.json()
       if (memesData.success) {
         setMemes(memesData.data.memes)
       }
 
       // 获取收藏列表
-      const favoritesRes = await fetch("/api/user/favorites")
+      const favoritesRes = await fetch("/api/user/favorites", { credentials: "include" })
       const favoritesData = await favoritesRes.json()
       if (favoritesData.success) {
         setFavorites(favoritesData.data.memes)
